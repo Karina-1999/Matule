@@ -1,9 +1,11 @@
 package com.example.matuleuikit
 
+import android.R.attr.checked
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -12,6 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.matuleuikit.ui.theme.MatuleUIKitTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.uikit_lybrary.components.AppToggle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +30,7 @@ class MainActivity : ComponentActivity() {
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
+
                     )
                 }
             }
@@ -32,10 +40,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+
+    var checked by remember { mutableStateOf(true) }
+    Column(modifier = modifier) {
+        Text(
+            text = "Hello $name!",
+            modifier = modifier
+        )
+        AppToggle(
+            checked = checked,
+            onCheckedChange = {newState ->
+                checked = newState
+            }
+        )
+    }
 }
 
 @Preview(showBackground = true)
